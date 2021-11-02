@@ -1,0 +1,29 @@
+@charset "EUC-KR";
+
+p {
+	padding: 20px;
+	margin: 5px;
+	font-weight: bold;
+}
+
+#p1 {
+	background: yellow;
+	color: white;
+}
+#p2 {
+	background: red;
+	color: pink;
+}
+#p3 {
+	background: blue;
+	color: cyan;
+}
+#p4 {
+	background: gray;
+	color: block;
+}
+/*span 태그에 p4를 바꾼다! */
+span#p4 { 
+	background: #red;
+	color: block;
+}

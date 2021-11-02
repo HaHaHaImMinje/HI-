@@ -1,0 +1,27 @@
+
+p{
+	padding: 20px;
+	margin: 5px;
+	font-weight: bold;
+}
+
+#p1{
+	 background: yellow;
+	 color: white;	 
+}
+#p2{
+	 background: red;
+	 color: pink;	 
+}
+#p3{
+	 background: blue;
+	 color: cyan;	 
+}
+p#p4{
+	 background: gray;
+	 color: black;	 
+}
+
+
+
+

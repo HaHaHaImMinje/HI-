@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org./dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sist.com.vo.apple">
+
+	<select id="getSequence" resultType="java.lang.Integer">
+		select boardmvc_seq.nextval
+		from dual
+	</select>
+
+	<insert id="insertBoard" parameterType="board">
+		insert into
+		boardmvc(no,author,title,password,contents,
+		hit,ref,step,lev,pnum,reply,regdate,filename,id)
+		values(#{no},#{author},#{title},#{password},#{contents},
+		0,#{ref},#{step},#{lev},#{pnum},0,sysdate,#{fileName},#{id})
+	</insert>
+
+	<select id="selectBoard" resultType="board">
+		select
+		no,author,title,password,contents,hit,pnum,
+		to_char(regdate,'YYYY/MM/DD')regdate,filename,id,ref,step,lev,reply
+		from boardmvc
+		order by ref desc,step,lev
+	</select>
+
+	<update id="updateHit" parameterType="int">
+		update boardmvc set
+		hit=hit+1
+		where no=#{value}
+	</update>
+
+	<sql id="sql">
+		SELECT
+		NO, AUTHOR, TITLE, PASSWORD, CONTENTS, HIT,
+		TO_CHAR(REGDATE,'YYYY/MM/DD')REGDATE, FILENAME,ID,REF,STEP,LEV,REPLY
+		FROM BOARDMVC
+	</sql>
+
+	<select id="selectInfoBoard" parameterType="int"
+		resultType="board">
+		select no,author,title,password,contents,hit,
+		to_char(regdate,'YYYY/MM/DD')regdate,filename,id,ref,step,lev,reply
+		from boardmvc
+		where no=#{no}
+	</select>
+
+	<select id="loginBoard" parameterType="String"
+		resultType="String">
+		select pass from adminlogin
+		where id=#{value}
+	</select>
+
+	<update id="updateReply" parameterType="java.util.HashMap">
+		update boardmvc set
+		<choose>
+			<when test="job eq 'reply'">
+				reply=reply+1
+			</when>
+			<otherwise>
+				reply=reply-1
+			</otherwise>
+		</choose>
+		where no=#{pnum}
+	</update>
+
+	<update id="updateStep" parameterType="java.util.HashMap">
+		update boardmvc set
+		step=step+1
+		where step>#{step} and ref=#{ref}
+	</update>
+
+	<select id="getParentNumber" parameterType="int"
+		resultType="int">
+		SELECT PNUM FROM BOARDMVC WHERE NO=#{value}
+	</select>
+
+	<select id="getPassWord" parameterType="int" resultType="String">
+		SELECT
+		PASSWORD FROM BOARDMVC WHERE NO=#{value}
+	</select>
+
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM BOARDMVC
+		WHERE NO=#{value}
+	</delete>
+
+	<!-- config.xml에서 alias로 지정해준 board -->
+	<update id="updateBoard" parameterType="board">
+		UPDATE BOARDMVC SET
+		TITLE=#{title},AUTHOR=#{author},CONTENTS=#{contents}
+		WHERE NO=#{no}
+	</update>
+
+	<select id="idCheckData" parameterType="String"
+		resultType="String">
+		SELECT NO FROM SCRAPACTION WHERE ID=#{VALUE}
+	</select>
+
+	<insert id="insertScrap" parameterType="HashMap">
+		INSERT INTO SCRAPACTION
+		VALUES(SCRPACTION_SEQ.NEXTVAL,#{id},#{scrapno})
+	</insert>
+
+	<select id="getScrapNumber" parameterType="String"
+		resultType="String">
+		SELECT SCRAPNO FROM SCRAPACTION WHERE ID=#{VALUE}
+	</select>
+
+	<update id="updateScrap" parameterType="scrap">
+		UPDATE SCRAPACTION SET
+		scrapno=#{scrapno} WHERE ID=#{id}
+	</update>
+
+	<select id="selectMyPage" parameterType="java.util.HashMap"
+		resultType="board">
+		<include refid="sql"></include>
+		WHERE NO IN
+		<foreach collection="nos" index="i" item="item" open="("
+			close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="selectStudAction" resultType="HashMap"> 
+		SELECT STUDNO, NAME,
+		USERID, GRADE, IDNUM, BIRTHDATE,
+		TEL, HEIGHT, WEIGHT, DEPTNO,
+		NVL(PROFNO,0)PROFNO
+		FROM STUDENT
+	</select>
+
+</mapper>
+
+
+
+
+

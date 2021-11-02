@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- DB set-up(Connection) -->
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="sist.com.vo.MvcBoardVO" alias="board" />
+		<typeAlias type="sist.com.vo.ScrapVO" alias="scrap" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="sist/com/dao/mapper.xml" />
+		<mapper resource="sist/com/dao/replymapper.xml"/>
+	</mappers>
+	
+</configuration>

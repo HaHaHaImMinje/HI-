@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="functions" uri="http://java.sun.com/jsp/jstl/functions" %>    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+	  
+  });
+</script>  
+</head>
+<body>
+<h1>Msg:${msg}</h1>
+<h2>${sList}</h2>
+<h2>${strList}</h2>
+<h2>${sv}</h2>
+</body>
+</html>

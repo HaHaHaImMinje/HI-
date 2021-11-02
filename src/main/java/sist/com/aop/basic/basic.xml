@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:aop="http://www.springframework.org/schema/aop"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+      http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<bean id="beforeAdvice" class="sist.com.aop.basic.BeforeAdviceBean"></bean>
+	<bean id="afterAdvice" class="sist.com.aop.basic.AfterAdviceBean"></bean>
+	<bean id="aroundAdvice" class="sist.com.aop.basic.AroundAdviceEx"></bean>
+	<bean id="mybatisDao" class="sist.com.aop.basic.MyBatisDao" scope="singleton"></bean>
+	<bean id="exception" class="sist.com.aop.basic.ExceptionAdvice" scope="singleton"></bean>
+	
+	<aop:config>
+		<aop:aspect id="before" ref="beforeAdvice">
+			<aop:before method="beforeMethod" pointcut="execution(public * sist.com.aop.basic.Dao*.*(..))"/> 
+		<!--()인자가 없어야한다. , (..)들어와도 되고 안들어와도 된다 , (*)은 뭐든지 들어와야 하는데 반드시 들어와야 한다.-->
+		</aop:aspect>
+		<aop:aspect id="after" ref="afterAdvice">
+			<aop:after method="afterMethod" pointcut="execution(public * sist.com.aop.basic.Dao*.*(..))"/> 
+		</aop:aspect>
+      <aop:aspect id="around" ref="aroundAdvice">
+         <aop:around method="messageAround" pointcut="execution(public * sist.com.aop.basic.Dao*.*())"/>
+      </aop:aspect>
+      <aop:aspect id="throwing" ref="exception">
+         <aop:after-throwing method="exceptionMessage" pointcut="execution(public * sist.com.aop.basic.Dao*.*())"/>
+      </aop:aspect>
+   </aop:config>
+
+	
+</beans>

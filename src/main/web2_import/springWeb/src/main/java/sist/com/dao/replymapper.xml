@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sist.com.vo.apple.ajax">
+
+<select id="getAjaxSequence" resultType="Integer">
+  SELECT REPLYDEMO_SEQ.NEXTVAL FROM DUAL
+</select>
+<insert id="insertAjaxReply" parameterType="sist.com.vo.ReplyVO">
+  INSERT INTO REPLYDEMO(NO,ID,REGDATE,STEP,LEV,PNUM,REF,REPLY,CONTENTS)
+  VALUES(#{no},#{id},SYSDATE,#{step},#{lev},#{pnum},#{ref},0,#{contents})
+</insert>
+<select id="selectAjaxReply" resultType="sist.com.vo.ReplyVO">
+SELECT NO,ID,to_char(REGDATE,'yyyy/mm/dd')REGDATE, STEP,LEV,PNUM,REF,REPLY,CONTENTS
+FROM REPLYDEMO
+</select>
+<delete id="ajaxDelete" parameterType="int">
+  DELETE FROM REPLYDEMO WHERE NO=#{VALUE}
+</delete>
+<insert id="insertTransAction" parameterType="java.util.HashMap">
+  INSERT INTO TRANSACTIONDB VALUES(#{no},#{msg},sysdate)
+</insert>
+
+<update id="updateTransAction" parameterType="java.util.HashMap">
+  UPDATE TRANSACTIONDB SET MSG=#{msg} WHERE NO=#{no}
+</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

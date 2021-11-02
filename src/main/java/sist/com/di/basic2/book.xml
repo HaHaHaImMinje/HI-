@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+      http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+
+	<bean id="book1" class="sist.com.di.basic2.Book" scope="prototype">
+		<property name="bookName" value="spring의 정석"></property>
+		<property name="author" value="조유주"></property>
+		<property name="price" value="10000"></property>
+		<property name="publihser" value="쌍용출판사"></property>
+	</bean>
+
+	<bean id="book2" class="sist.com.di.basic2.Book" scope="prototype"
+		p:bookName="Java의 정석" p:author="이미래" p:price="8000" p:publihser="쌍용 "></bean>
+
+	<bean id="book3" class="sist.com.di.basic2.Book" scope="singleton">
+		<property name="bookName" value="Oracel의 정석"></property>
+		<property name="author" value="지현"></property>
+		<property name="price" value="15000"></property>
+		<property name="publihser" value="포스코출판"></property>
+	</bean>
+
+	<bean id="store1" class="sist.com.di.basic2.Store" scope="singleton">
+		
+		<property name="properties">
+			<props>
+				<prop key="민제책">it로 시작하는 WEBAPP</prop>
+				<prop key="미래책">It책</prop>
+				<prop key="경진책">front WEBAPP</prop>
+			</props>
+		</property>
+
+		<property name="list">
+			<list>
+				<ref bean="book1" />
+				<ref bean="book2" />
+				<ref bean="book1" />
+				<ref bean="book3" />
+				<ref bean="book1" />
+			</list>
+		</property>
+		<property name="set">
+			<set>
+				<ref bean="book1" />
+				<ref bean="book2" />
+				<ref bean="book1" />
+				<ref bean="book3" />
+				<ref bean="book1" />
+			</set>
+		</property>
+	
+	</bean>
+	<bean id="store2" class="sist.com.di.basic2.Store"
+		scope="singleton">
+		<property name="list">
+			<list>
+				<ref bean="book1" />
+				<ref bean="book1" />
+				<ref bean="book1" />
+				<ref bean="book1" />
+				<ref bean="book1" />
+				<ref bean="book1" />
+			</list>
+		</property>
+		<property name="set">
+			<set>
+				<ref bean="book1" />
+				<ref bean="book1" />
+				<ref bean="book1" />
+				<ref bean="book1" />
+				<ref bean="book1" />
+				<ref bean="book1" />
+			</set>
+		</property>
+	</bean>
+</beans>
