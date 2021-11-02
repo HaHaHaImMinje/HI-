@@ -9,14 +9,9 @@ public class AopActionDao implements ParentDao{
 	public void fileAccessData() {
 		// TODO Auto-generated method stub
 	}
-
 	@Override
 	public void dmlProcessData() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-	
-	
-
 	
 }
